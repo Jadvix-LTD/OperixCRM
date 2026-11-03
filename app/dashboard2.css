@@ -1,0 +1,726 @@
+/*
+ * Layout for the module screens in ./components/dash/screens2.tsx.
+ *
+ * Same rules as dashboard.css: scoped under .dk, drawn on the fixed
+ * 1034 x 734 design canvas, so every length is a design pixel.
+ */
+
+/* Shared bits the second batch of screens leans on. */
+.dk-stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  padding: 16px;
+  height: 100%;
+  align-items: center;
+}
+.dk-stat-row > * + * {
+  border-left: 1px solid #f1f2f7;
+  padding-left: 14px;
+}
+.dk-cell-id {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.dk-cell-id b {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+}
+.dk-cell-id small {
+  display: block;
+  font-size: 9px;
+  color: #8a8a98;
+  margin-top: 1px;
+}
+.dk-td-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 90px;
+}
+.dk-td-bar .dk-bar {
+  flex: 1;
+}
+.dk-td-bar i {
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 600;
+  width: 26px;
+  text-align: right;
+}
+.dk-stack {
+  display: inline-flex;
+}
+.dk-stack > * + * {
+  margin-left: -7px;
+  box-shadow: 0 0 0 2px #fff;
+}
+.dk-row-actions {
+  display: inline-flex;
+  gap: 5px;
+}
+.dk-row-actions .dk-mini-pill {
+  height: 24px;
+  padding: 0 9px;
+  font-size: 10px;
+}
+.dk-textarea {
+  position: relative;
+  flex: 1;
+  margin-top: 14px;
+  padding: 13px;
+  border-radius: 9px;
+  border: 1px solid #e7e9f2;
+  background: #fafbfe;
+  font-size: 12px;
+  color: #a4a7b6;
+  min-height: 0;
+}
+.dk-textarea i {
+  display: inline-block;
+  width: 1px;
+  height: 13px;
+  margin-left: 2px;
+  background: #2f63e8;
+  vertical-align: -2px;
+  animation: dk-caret 1.1s steps(1) infinite;
+}
+@keyframes dk-caret {
+  50% { opacity: 0; }
+}
+.dk-stars {
+  display: inline-flex;
+  gap: 2px;
+  flex: none;
+}
+
+/* ------------------------------------------------------------ projects -- */
+.dk-projects,
+.dk-employees,
+.dk-leave {
+  grid-template-rows: 92px 1fr;
+}
+.dk-proj-table,
+.dk-emp-table,
+.dk-leave-table {
+  min-height: 0;
+}
+.dk-proj-table .dk-table,
+.dk-emp-table .dk-table,
+.dk-leave-table .dk-table,
+.dk-pay-table .dk-table {
+  table-layout: auto;
+}
+
+/* ---------------------------------------------------------------- bugs -- */
+.dk-bugs {
+  grid-template-columns: 1.55fr 1fr;
+}
+.dk-bug-rows {
+  list-style: none;
+  overflow: hidden;
+}
+.dk-bug-rows li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f4f5f9;
+  animation: dk-slide-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.dk-sev {
+  width: 4px;
+  height: 30px;
+  border-radius: 3px;
+  flex: none;
+}
+.dk-bug-body {
+  flex: 1;
+  min-width: 0;
+}
+.dk-bug-body b {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dk-bug-body small {
+  display: block;
+  font-size: 10px;
+  color: #8a8a98;
+  margin-top: 2px;
+}
+
+/* ------------------------------------------------------------ requests -- */
+.dk-requests {
+  grid-template-columns: 1.7fr 1fr;
+}
+.dk-invite-list {
+  list-style: none;
+  display: grid;
+  gap: 11px;
+  margin-top: 16px;
+  align-content: start;
+}
+.dk-invite-list li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #eceef6;
+  background: #fcfcfe;
+  animation: dk-rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.dk-invite-body {
+  flex: 1;
+  min-width: 0;
+}
+.dk-invite-body b {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+}
+.dk-invite-body small {
+  display: block;
+  font-size: 10px;
+  color: #8a8a98;
+  margin-top: 3px;
+}
+
+/* ------------------------------------------------------- communication -- */
+.dk-comms {
+  grid-template-columns: 1fr 1.7fr;
+}
+.dk-channel-list {
+  list-style: none;
+  overflow: hidden;
+}
+.dk-channel-list button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #f4f5f9;
+  border-left: 3px solid transparent;
+  text-align: left;
+}
+.dk-channel-list button.on {
+  background: #f4f7ff;
+  border-left-color: #2f63e8;
+}
+.dk-channel-list span {
+  flex: 1;
+  min-width: 0;
+}
+.dk-channel-list b {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+}
+.dk-channel-list small {
+  display: block;
+  font-size: 10px;
+  color: #8a8a98;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dk-unread {
+  flex: none;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: #2f63e8;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  font-style: normal;
+  display: grid;
+  place-items: center;
+}
+.dk-messages {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+  flex: 1;
+  align-content: start;
+  min-height: 0;
+}
+.dk-messages li {
+  display: flex;
+  gap: 9px;
+  align-items: flex-end;
+  animation: dk-slide-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.dk-messages li.me {
+  justify-content: flex-end;
+}
+.dk-bubble {
+  max-width: 74%;
+  padding: 10px 13px;
+  border-radius: 12px 12px 12px 3px;
+  background: #f3f5fb;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #2b2b35;
+}
+.dk-bubble em {
+  display: block;
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 600;
+  color: #2f63e8;
+  margin-bottom: 3px;
+}
+.dk-messages li.me .dk-bubble {
+  border-radius: 12px 12px 3px 12px;
+  background: linear-gradient(135deg, #4a63e8, #2f7fe0);
+  color: #fff;
+}
+.dk-composer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding: 11px 13px;
+  border-radius: 10px;
+  border: 1px solid #e7e9f2;
+  background: #fafbfe;
+  font-size: 12px;
+  color: #a4a7b6;
+}
+.dk-composer span {
+  flex: 1;
+}
+.dk-composer i {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #4a63e8, #2f7fe0);
+  color: #fff;
+}
+
+/* ------------------------------------------------------------- monitor -- */
+.dk-monitor {
+  grid-template-columns: 1.6fr 1fr;
+}
+.dk-timeline {
+  list-style: none;
+  position: relative;
+  margin-top: 18px;
+  display: grid;
+  gap: 16px;
+}
+.dk-timeline::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: #ebeef7;
+}
+.dk-timeline li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: dk-slide-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.dk-tl-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  box-shadow: 0 0 0 3px #fff;
+}
+.dk-tl-body {
+  flex: 1;
+  min-width: 0;
+}
+.dk-tl-body b {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+}
+.dk-tl-body small {
+  display: block;
+  font-size: 10px;
+  color: #8a8a98;
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------- teams -- */
+.dk-teams {
+  grid-template-columns: repeat(3, 1fr);
+}
+.dk-team-members {
+  list-style: none;
+  display: grid;
+  gap: 11px;
+  margin-top: 14px;
+}
+.dk-team-members li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.dk-team-members span {
+  flex: 1;
+  min-width: 0;
+}
+.dk-team-members b {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+}
+.dk-team-members small {
+  display: block;
+  font-size: 10px;
+  color: #8a8a98;
+}
+
+/* ------------------------------------------------------------- reports -- */
+.dk-reports {
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: 215px 1fr;
+}
+.dk-report-list {
+  grid-column: 1 / 3;
+  min-height: 0;
+}
+.dk-report-rows {
+  list-style: none;
+  overflow: hidden;
+}
+.dk-report-rows li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f4f5f9;
+  animation: dk-slide-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.dk-report-body {
+  flex: 1;
+  min-width: 0;
+}
+.dk-report-body b {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+}
+.dk-report-body small {
+  display: block;
+  font-size: 11px;
+  color: #8a8a98;
+  margin-top: 3px;
+}
+
+/* -------------------------------------------------------------- salary -- */
+.dk-salary {
+  grid-template-columns: 1fr 1.7fr;
+}
+
+/* ----------------------------------------------------------- companies -- */
+.dk-companies {
+  grid-template-columns: repeat(3, 1fr);
+}
+.dk-companies .dk-sub {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+/* ------------------------------------------------------------ branches -- */
+.dk-branches {
+  grid-template-columns: 1.7fr 1fr;
+}
+.dk-branch-rows {
+  list-style: none;
+}
+.dk-branch-rows li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid #f4f5f9;
+  animation: dk-slide-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.dk-branch-body {
+  flex: 1;
+  min-width: 0;
+}
+.dk-branch-body b {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+}
+.dk-branch-body small {
+  display: block;
+  font-size: 10px;
+  color: #8a8a98;
+  margin-top: 2px;
+}
+.dk-branch-lead {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+}
+.dk-branch-lead small {
+  font-size: 10px;
+  color: #8a8a98;
+}
+
+/* ------------------------------------------------------- notifications -- */
+.dk-notes {
+  grid-template-columns: 1.7fr 1fr;
+}
+.dk-note-rows {
+  list-style: none;
+  overflow: hidden;
+}
+.dk-note-rows li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f4f5f9;
+  animation: dk-slide-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.dk-note-rows li[data-unread="true"] {
+  background: #f8faff;
+}
+.dk-note-body {
+  flex: 1;
+  min-width: 0;
+}
+.dk-note-body b {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+}
+.dk-note-body small {
+  display: block;
+  font-size: 10px;
+  color: #8a8a98;
+  margin-top: 2px;
+}
+.dk-dot-unread {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2f63e8;
+  flex: none;
+}
+
+/* ------------------------------------------------------- module access -- */
+.dk-access {
+  grid-template-columns: 1.75fr 1fr;
+}
+.dk-matrix th:not(:first-child),
+.dk-matrix td:not(:first-child) {
+  text-align: center;
+  width: 78px;
+}
+.dk-matrix td {
+  padding: 7px 16px;
+}
+.dk-toggle {
+  width: 32px;
+  height: 18px;
+  border-radius: 10px;
+  background: #e4e7f1;
+  border: 0;
+  padding: 2px;
+  display: inline-flex;
+  transition: background 0.2s;
+}
+.dk-toggle i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(20, 30, 80, 0.25);
+  transition: translate 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.dk-toggle.on {
+  background: linear-gradient(90deg, #2f6ae8, #2a45d6);
+}
+.dk-toggle.on i {
+  translate: 14px 0;
+}
+.dk-locked {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+.dk-locked li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: #f1f2f7;
+  font-size: 10px;
+  color: #5b6478;
+}
+
+/* ------------------------------------------------------------ settings -- */
+.dk-settings {
+  grid-template-columns: 1.1fr 1fr 1fr;
+}
+.dk-fields {
+  display: grid;
+  gap: 11px;
+  margin-top: 16px;
+}
+.dk-fields label {
+  display: grid;
+  gap: 5px;
+  font-size: 10px;
+  color: #8a8a98;
+}
+.dk-fields span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: 1px solid #e7e9f2;
+  background: #fafbfe;
+  font-size: 12px;
+  color: #2b2b35;
+}
+.dk-set-list {
+  list-style: none;
+  display: grid;
+  gap: 13px;
+  margin-top: 14px;
+}
+.dk-set-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #f4f5f9;
+}
+.dk-set-list li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.dk-set-list b {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+}
+.dk-set-list small {
+  display: block;
+  font-size: 10px;
+  color: #8a8a98;
+  margin-top: 2px;
+}
+.dk-swatches {
+  display: flex;
+  gap: 5px;
+}
+.dk-swatches i {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: block;
+}
+.dk-swatches i.on {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor;
+}
+
+/* ------------------------------------------------------------- student -- */
+.dk-student {
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: 1fr auto;
+}
+.dk-course-list {
+  grid-row: 1 / 3;
+}
+.dk-course-rows {
+  list-style: none;
+}
+.dk-course-rows li {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px 16px;
+  border-bottom: 1px solid #f4f5f9;
+  animation: dk-slide-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.dk-course-body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+.dk-course-body b {
+  font-size: 12px;
+  font-weight: 500;
+}
+.dk-cert-body {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 14px;
+}
+.dk-cert-seal {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(135deg, #7b5cf0, #2f7fdc);
+  box-shadow: 0 6px 16px rgba(47, 100, 224, 0.3);
+}
+.dk-cert-checks {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 11px;
+}
+.dk-cert-checks li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #8a8a98;
+}
+.dk-cert-checks li[data-ok="true"] {
+  color: #2b2b35;
+}
+.dk-cert-checks li[data-ok="true"] svg {
+  color: #1f9d4d;
+}
+.dk-cert-checks li[data-ok="false"] svg {
+  color: #d2800f;
+}

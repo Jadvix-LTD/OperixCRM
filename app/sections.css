@@ -1,0 +1,573 @@
+/*
+ * Styles for the sections added in the second pass: the reworked portal
+ * cards, the hover behaviour on the feature bento, the KRA proof block and
+ * the module showcase. Kept apart from globals.css so the page's base layer
+ * stays readable.
+ */
+
+/* ------------------------------------------------------- portals (v2) -- */
+.portal {
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+.portal > article {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  height: 100%;
+  padding: 22px;
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 20px rgba(30, 50, 120, 0.05);
+  overflow: hidden;
+  transition: translate 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
+}
+.portal > article::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 0%), rgba(47, 99, 232, 0.1), transparent 70%);
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+.portal:hover > article {
+  translate: 0 -4px;
+  border-color: #d2dbf7;
+  box-shadow: 0 18px 40px rgba(30, 50, 120, 0.11);
+}
+.portal:hover > article::before {
+  opacity: 1;
+}
+.portal-sweep {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #7b6cf5, #2347e0, #2fa6e2, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease);
+}
+.portal:hover .portal-sweep,
+.portal.open .portal-sweep {
+  transform: scaleX(1);
+}
+.portal-icon {
+  transition: transform 0.4s var(--ease), background 0.3s;
+}
+.portal:hover .portal-icon {
+  transform: translateY(-2px) rotate(-6deg) scale(1.06);
+}
+.portal-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.portal.feature > article {
+  background: linear-gradient(135deg, #4a63e8, #2f7fe0);
+  border-color: transparent;
+  box-shadow: 0 14px 32px rgba(47, 100, 224, 0.28);
+}
+.portal.feature h3,
+.portal.feature .portal-who {
+  color: #fff;
+}
+.portal.feature .portal-body {
+  color: #e1e9ff;
+}
+.chips li {
+  opacity: 0.78;
+  transition: opacity 0.3s var(--ease), translate 0.3s var(--ease);
+  transition-delay: var(--k, 0ms);
+}
+.portal:hover .chips li {
+  opacity: 1;
+  translate: 0 -2px;
+}
+.portal-go {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  color: var(--blue);
+  opacity: 0;
+  translate: -6px 6px;
+  transition: opacity 0.3s, translate 0.3s var(--ease);
+}
+.portal.feature .portal-go {
+  color: #fff;
+}
+.portal:hover .portal-go {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ---------------------------------------------------- features (hover) -- */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(420px circle at 50% 0%, rgba(47, 99, 232, 0.07), transparent 70%);
+  transition: opacity 0.4s;
+}
+.card:hover {
+  translate: 0 -4px;
+  border-color: #d6ddf6;
+  box-shadow: 0 22px 46px rgba(30, 50, 120, 0.12);
+}
+.card:hover::after {
+  opacity: 1;
+}
+.card h3 {
+  transition: color 0.3s;
+}
+.card:hover h3 {
+  color: var(--blue-2);
+}
+.card .card-viz,
+.card .feature-dots {
+  transition: transform 0.5s var(--ease);
+}
+.card:hover .card-viz,
+.card:hover .feature-dots {
+  transform: scale(1.035);
+}
+.float-tip {
+  transition: translate 0.4s var(--ease);
+}
+.card:hover .float-tip {
+  translate: 0 -5px;
+}
+
+/* ------------------------------------------------------------ KRA proof -- */
+.kra-section {
+  background: linear-gradient(#fff, #f5f7ff);
+}
+.kra {
+  display: grid;
+  grid-template-columns: minmax(240px, 300px) 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  text-align: left;
+}
+.kra-dial-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.kra-dial {
+  width: 100%;
+  max-width: 300px;
+}
+.kra-dial-mid {
+  position: absolute;
+  display: grid;
+  justify-items: center;
+  line-height: 1;
+}
+.kra-dial-mid b {
+  font-size: clamp(3rem, 6vw, 4.2rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+.kra-dial-mid small {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.kra-badge {
+  position: absolute;
+  bottom: 4%;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 6px 18px rgba(30, 50, 120, 0.1);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--blue);
+}
+.kra-copy .eyebrow {
+  margin-bottom: 14px;
+}
+.kra-points {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+.kra-points li {
+  padding-left: 16px;
+  border-left: 2px solid #dde3f7;
+}
+.kra-points b {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+}
+.kra-points span {
+  display: block;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.kra-trail {
+  grid-column: 1 / -1;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+.kra-trail li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 16px rgba(30, 50, 120, 0.05);
+  animation: rise 0.7s var(--ease) var(--delay, 0ms) both;
+}
+.kra-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+  padding: 5px 9px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fde4e7;
+  color: #d93a4d;
+}
+.kra-delta[data-up="true"] {
+  background: #ddf6e4;
+  color: #1f9d4d;
+}
+.kra-trail-body b {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+.kra-trail-body small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ----------------------------------------------------- module showcase -- */
+.showcase {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: clamp(18px, 2.5vw, 32px);
+  margin-top: 44px;
+  text-align: left;
+  align-items: start;
+}
+.showcase-list {
+  display: grid;
+  gap: 6px;
+}
+.showcase-item {
+  display: grid;
+  grid-template-columns: 38px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 13px 14px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid transparent;
+  text-align: left;
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, translate 0.25s var(--ease);
+}
+.showcase-item:hover {
+  border-color: #dfe5f8;
+}
+.showcase-item.on {
+  border-color: #cdd8f7;
+  box-shadow: 0 10px 26px rgba(30, 50, 120, 0.09);
+  translate: 4px 0;
+}
+.showcase-ic {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: #eef2ff;
+  color: var(--blue);
+  transition: background 0.25s, color 0.25s;
+}
+.showcase-item.on .showcase-ic {
+  background: linear-gradient(135deg, #4a63e8, #2f7fe0);
+  color: #fff;
+}
+.showcase-copy b {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+}
+.showcase-copy small {
+  display: block;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.showcase-group {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--soft);
+  white-space: nowrap;
+}
+.showcase-stage {
+  position: sticky;
+  top: 96px;
+}
+.showcase-caption {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 12px;
+  animation: rise 0.5s var(--ease) both;
+}
+.showcase-caption b {
+  font-size: 16px;
+  font-weight: 500;
+}
+.showcase-caption span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.module-rest {
+  margin-top: 56px;
+  text-align: left;
+}
+.module-rest > h3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-2);
+  margin-bottom: 14px;
+}
+.module-rest .module-groups {
+  margin-top: 0;
+}
+.module-group h4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 8px;
+}
+.module-group h4 span {
+  font-weight: 500;
+  color: var(--muted);
+  font-size: 12px;
+}
+.module-group li {
+  display: block;
+  padding: 10px 0;
+}
+
+/* ----------------------------------------------------------- unlock -- */
+.cloud-aura {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(620px, 90%);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(123, 108, 245, 0.17), rgba(47, 166, 226, 0.08) 55%, transparent 72%);
+  animation: aura 12s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes aura {
+  50% {
+    transform: scale(1.14) rotate(10deg);
+    opacity: 0.7;
+  }
+}
+.wg .pos.up {
+  background: #ddf6e4;
+  color: #1f9d4d;
+}
+
+/* ----------------------------------------------------- testimonials -- */
+.quote-card {
+  display: block;
+  background: #fff;
+  min-height: 0;
+  padding: clamp(28px, 4vw, 48px);
+  text-align: center;
+}
+.quote-mark {
+  color: #dde4f8;
+  margin: 0 auto 6px;
+}
+.quote-card .quote-body {
+  padding: 0;
+  display: grid;
+  gap: 20px;
+  justify-items: center;
+}
+.quote-body blockquote {
+  font-size: clamp(1.2rem, 2.3vw, 1.75rem);
+  max-width: 44ch;
+}
+.quote-body cite b {
+  font-size: 15px;
+}
+
+@media (max-width: 1024px) {
+  .kra {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .kra-points li {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .kra-trail {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .showcase {
+    grid-template-columns: 1fr;
+  }
+  .showcase-stage {
+    position: static;
+  }
+}
+
+
+/* ---------------------------------------------------- scroll polish -- */
+/*
+ * Scroll-linked motion with no JavaScript and no scroll listener: the
+ * browser drives these off the compositor, so they stay smooth on a long
+ * page. Browsers without scroll-driven animations simply show the static
+ * state, which is why nothing here is load-bearing.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-shot {
+      animation: shot-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 42%;
+    }
+    @keyframes shot-settle {
+      from { transform: perspective(1400px) rotateX(7deg) scale(0.955); }
+      to { transform: perspective(1400px) rotateX(0deg) scale(1); }
+    }
+
+    .section-head {
+      animation: head-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+    @keyframes head-in {
+      from { opacity: 0; transform: translateY(26px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .ribbon {
+      animation: ribbon-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+    @keyframes ribbon-drift {
+      from { transform: translateY(26px) scale(1.04); }
+      to { transform: translateY(-26px) scale(1); }
+    }
+    .ribbon[style*="scaleX"] {
+      animation: none;
+    }
+
+    .wg {
+      animation: wg-float 7s ease-in-out infinite, wg-parallax linear both;
+      animation-timeline: auto, view();
+      animation-range: auto, entry 0% exit 100%;
+    }
+    @keyframes wg-parallax {
+      from { translate: 0 22px; }
+      to { translate: 0 -22px; }
+    }
+  }
+}
+
+
+
+/* The showcase list grew to every module, so it scrolls beside the stage. */
+.showcase-list {
+  max-height: min(78vh, 720px);
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: #d4daee transparent;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+.showcase-list::-webkit-scrollbar {
+  width: 6px;
+}
+.showcase-list::-webkit-scrollbar-thumb {
+  background: #d4daee;
+  border-radius: 3px;
+}
+.showcase-group-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  margin: 14px 0 2px;
+  padding: 6px 4px;
+  background: var(--soft);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.showcase-group-head:first-child {
+  margin-top: 0;
+}
+.showcase-item {
+  grid-template-columns: 38px 1fr;
+}
+
+
+/* Four discover tabs: two rows on a tablet, one column on a phone. The
+   upper bound matters — this file loads after globals.css, so without it
+   the pair would also override the single column set there. */
+@media (max-width: 1100px) and (min-width: 621px) {
+  .tabs {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 620px) {
+  .tabs {
+    grid-template-columns: 1fr;
+  }
+}
