@@ -1,0 +1,173 @@
+/*
+ * OperixCRM design tokens.
+ *
+ * The one place a colour, a radius, a shadow or an easing curve is allowed to
+ * be written down. Component code references these variables and never a raw
+ * value — the lint rule in packages/ui/eslint-no-raw-values.mjs enforces it.
+ *
+ * The light palette is lifted verbatim from the product mock already shipped
+ * on the marketing site, so the application and the website cannot drift.
+ * The dark palette is new: it keeps every hue's meaning and only moves
+ * lightness, so green still reads "this went well" on either theme.
+ */
+
+:root {
+  /* -------------------------------------------------------- accents -- */
+  /* Each tint is a surface (behind), an ink (on the surface) and a solid
+     (for dots, bars and fills). Meaning is fixed — see components.css. */
+  --ox-t-blue-bg: #e8efff;
+  --ox-t-blue-fg: #2f63e8;
+  --ox-t-blue: #2f63e8;
+
+  --ox-t-purple-bg: #eee9fe;
+  --ox-t-purple-fg: #6d4aef;
+  --ox-t-purple: #6d4aef;
+
+  --ox-t-sky-bg: #e2f4fd;
+  --ox-t-sky-fg: #1b92c9;
+  --ox-t-sky: #1b92c9;
+
+  --ox-t-green-bg: #ddf6e4;
+  --ox-t-green-fg: #1f9d4d;
+  --ox-t-green: #1f9d4d;
+
+  --ox-t-orange-bg: #fef0dd;
+  --ox-t-orange-fg: #d2800f;
+  --ox-t-orange: #d2800f;
+
+  --ox-t-red-bg: #fde4e7;
+  --ox-t-red-fg: #d93a4d;
+  --ox-t-red: #d93a4d;
+
+  --ox-t-slate-bg: #eceef4;
+  --ox-t-slate-fg: #5b6478;
+  --ox-t-slate: #5b6478;
+
+  /* ----------------------------------------------------- foundation -- */
+  --ox-ink: #0b0b12;          /* headings, figures — never pure black */
+  --ox-ink-2: #2b2b35;        /* body copy */
+  --ox-muted: #8a8a98;        /* labels, secondary */
+  --ox-faint: #b6b9c6;        /* placeholder, disabled */
+
+  --ox-surface: #f6f6f8;      /* the page behind the cards */
+  --ox-surface-2: #fafbfe;    /* table head, inset wells */
+  --ox-card: #ffffff;
+  --ox-card-hover: #f8f9fd;
+
+  --ox-line: #ececf0;         /* control border */
+  --ox-hairline: #f1f2f7;     /* row divider */
+  --ox-line-strong: #d9dff3;  /* hover border */
+
+  /* ------------------------------------------------------- gradients -- */
+  --ox-grad-action: linear-gradient(90deg, #2f6ae8, #2a45d6);
+  --ox-grad-nav: linear-gradient(90deg, #05060f, #0b1f4d);
+  --ox-grad-hero: linear-gradient(135deg, #7b5cf0 0%, #4a63e4 40%, #2f7fdc 75%, #4a9ad0 100%);
+
+  /* --------------------------------------------------------- shadows -- */
+  /* Two layers: a contact edge and a soft lift. Tinted blue, never grey. */
+  --ox-shadow-card: 0 1px 2px rgba(20, 30, 80, 0.04), 0 8px 24px rgba(20, 30, 80, 0.05);
+  --ox-shadow-lift: 0 10px 26px rgba(20, 30, 80, 0.10);
+  --ox-shadow-pop: 0 6px 18px rgba(30, 40, 90, 0.14);
+  --ox-shadow-control: 0 1px 3px rgba(20, 20, 60, 0.06);
+  --ox-shadow-action: 0 6px 16px rgba(42, 69, 214, 0.30);
+
+  /* ----------------------------------------------- radius · tighter in -- */
+  --ox-r-chip: 6px;
+  --ox-r-control: 9px;
+  --ox-r-card: 12px;
+  --ox-r-panel: 14px;
+  --ox-r-pill: 999px;
+
+  /* ----------------------------------------------------------- space -- */
+  --ox-s-1: 4px;
+  --ox-s-2: 8px;
+  --ox-s-3: 12px;
+  --ox-s-4: 16px;
+  --ox-s-5: 22px;
+  --ox-s-6: 30px;
+  --ox-s-7: 44px;
+
+  /* ------------------------------------- motion · one curve, three times -- */
+  --ox-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ox-t-fast: 0.18s;   /* state change: hover, active, toggle */
+  --ox-t-mid: 0.45s;    /* content slide */
+  --ox-t-slow: 0.5s;    /* entrance rise */
+
+  /* ------------------------------------------------------------ type -- */
+  --ox-font: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  --ox-font-mono: "Cascadia Mono", ui-monospace, Consolas, monospace;
+
+  --ox-fs-display: 32px;
+  --ox-fs-h1: 26px;
+  --ox-fs-h2: 20px;
+  --ox-fs-h3: 15px;
+  --ox-fs-body: 13px;
+  --ox-fs-sm: 12px;
+  --ox-fs-xs: 11px;
+  --ox-fs-micro: 10px;
+
+  --ox-z-rail: 20;
+  --ox-z-bar: 30;
+  --ox-z-panel: 40;
+  --ox-z-palette: 60;
+}
+
+/*
+ * Dark theme.
+ *
+ * Applied by `data-theme="dark"`, or by the system preference unless the
+ * document has explicitly asked for light. Hues keep their meaning; only
+ * lightness moves, and every tint ink is lifted to stay legible on a dark
+ * surface.
+ */
+/*
+ * Dark theme — opt in with data-theme="dark" on <html>.
+ *
+ * Deliberately NOT wired to prefers-color-scheme: the marketing site shares
+ * this stylesheet and has no dark palette of its own, so an OS preference
+ * would leave it with dark form controls on a white page.
+ *
+ * Hues keep their meaning; only lightness moves, so green still reads
+ * "this went well" on either theme.
+ */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ox-t-blue-bg: #16233f;   --ox-t-blue-fg: #7aa3ff;   --ox-t-blue: #4a80e8;
+  --ox-t-purple-bg: #221c3d; --ox-t-purple-fg: #a68cff; --ox-t-purple: #8b6dff;
+  --ox-t-sky-bg: #102b38;    --ox-t-sky-fg: #5cc2ec;    --ox-t-sky: #2aa6d8;
+  --ox-t-green-bg: #10281a;  --ox-t-green-fg: #5fd389;  --ox-t-green: #2fb964;
+  --ox-t-orange-bg: #2e2210; --ox-t-orange-fg: #e8a94a; --ox-t-orange: #e09a2a;
+  --ox-t-red-bg: #311620;    --ox-t-red-fg: #f58095;    --ox-t-red: #e8516b;
+  --ox-t-slate-bg: #1d212b;  --ox-t-slate-fg: #9aa2b5;  --ox-t-slate: #8a93a8;
+
+  --ox-ink: #f2f3f7;
+  --ox-ink-2: #d2d6e0;
+  --ox-muted: #8d93a6;
+  --ox-faint: #5d6478;
+
+  --ox-surface: #0e1016;
+  --ox-surface-2: #13161e;
+  --ox-card: #171a22;
+  --ox-card-hover: #1d212b;
+
+  --ox-line: #262a35;
+  --ox-hairline: #20242e;
+  --ox-line-strong: #343a4a;
+
+  --ox-grad-nav: linear-gradient(90deg, #2f63e8, #1b3fae);
+
+  --ox-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.40), 0 8px 24px rgba(0, 0, 0, 0.30);
+  --ox-shadow-lift: 0 10px 26px rgba(0, 0, 0, 0.45);
+  --ox-shadow-pop: 0 6px 18px rgba(0, 0, 0, 0.50);
+  --ox-shadow-control: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* People use this tool for eight hours. Honour the setting. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ox-t-fast: 0.01ms;
+    --ox-t-mid: 0.01ms;
+    --ox-t-slow: 0.01ms;
+  }
+}

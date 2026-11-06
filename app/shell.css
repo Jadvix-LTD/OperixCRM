@@ -1,0 +1,732 @@
+/*
+ * The OperixCRM workspace chrome.
+ *
+ * A faithful build of the reference dashboard: no sidebar, a centred row of
+ * rounded pills with the active one in near-black, and the whole page on a
+ * soft grey surface with white cards floating on it.
+ *
+ * Scoped under `.ox-app` so none of it reaches the marketing pages, which
+ * share this document. Values come from the --ox-* token set.
+ */
+
+.ox-app {
+  min-height: 100dvh;
+  background: var(--ox-surface);
+  color: var(--ox-ink);
+  font-family: var(--ox-font);
+  font-size: var(--ox-fs-body);
+  line-height: 1.55;
+}
+
+.ox-skip-link {
+  position: fixed;
+  left: var(--ox-s-4);
+  top: -60px;
+  z-index: var(--ox-z-palette);
+  padding: 10px 16px;
+  border-radius: var(--ox-r-control);
+  background: var(--ox-ink);
+  color: var(--ox-card);
+  font-size: var(--ox-fs-sm);
+  transition: top var(--ox-t-fast);
+}
+.ox-skip-link:focus {
+  top: var(--ox-s-4);
+}
+
+.ox-app :where(button):focus-visible,
+.ox-app :where(a):focus-visible {
+  outline: 2px solid var(--ox-t-blue);
+  outline-offset: 2px;
+}
+
+/* =============================================================== app bar -- */
+.ox-appbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--ox-z-bar);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--ox-s-4);
+  padding: var(--ox-s-4) var(--ox-s-5);
+  background: var(--ox-surface);
+}
+
+.ox-appbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--ox-s-2);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--ox-ink);
+  text-decoration: none;
+  justify-self: start;
+}
+
+/* ------------------------------------------------- the pill rows (both) -- */
+/*
+ * Separate rounded pills with gaps, exactly as the reference draws them —
+ * not segments inside one container. The active pill is the near-black
+ * gradient; the rest are white with the faint control shadow.
+ */
+.ox-pillnav,
+.ox-pillrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ox-pillnav::-webkit-scrollbar,
+.ox-pillrow::-webkit-scrollbar {
+  display: none;
+}
+
+.ox-pillnav button,
+.ox-pillrow button,
+.ox-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  height: 37px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: var(--ox-r-pill);
+  background: var(--ox-card);
+  box-shadow: var(--ox-shadow-control);
+  font-family: var(--ox-font);
+  font-size: var(--ox-fs-sm);
+  font-weight: 500;
+  color: var(--ox-ink-2);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--ox-t-fast), color var(--ox-t-fast), box-shadow var(--ox-t-fast);
+}
+.ox-pillnav button:hover,
+.ox-pillrow button:hover,
+.ox-pill:hover {
+  background: var(--ox-t-blue-bg);
+  color: var(--ox-t-blue-fg);
+}
+.ox-pillnav button.is-on,
+.ox-pillrow button.is-on {
+  background: var(--ox-grad-nav);
+  color: #fff;
+  box-shadow: none;
+}
+.ox-pillnav button.is-on:hover,
+.ox-pillrow button.is-on:hover {
+  color: #fff;
+}
+.ox-pillrow button,
+.ox-pill {
+  height: 34px;
+  padding: 0 16px;
+  font-size: var(--ox-fs-xs);
+}
+
+/* -------------------------------------------------- circular icon button -- */
+.ox-circ {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border: 1px solid var(--ox-line);
+  border-radius: var(--ox-r-pill);
+  background: var(--ox-card);
+  color: var(--ox-ink-2);
+  cursor: pointer;
+  transition: background var(--ox-t-fast), border-color var(--ox-t-fast);
+}
+.ox-circ:hover {
+  background: var(--ox-t-blue-bg);
+  border-color: var(--ox-t-blue-bg);
+  color: var(--ox-t-blue-fg);
+}
+.ox-circ-ping {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--ox-r-pill);
+  background: var(--ox-t-red);
+  box-shadow: 0 0 0 2px var(--ox-card);
+}
+
+.ox-appbar-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--ox-s-2);
+  justify-self: end;
+}
+.ox-appbar-me {
+  display: block;
+  border-radius: var(--ox-r-control);
+  overflow: hidden;
+}
+/* The reference uses a rounded square for the avatar, not a circle. */
+.ox-appbar-me .ox-avatar {
+  border-radius: var(--ox-r-control);
+}
+
+/* ============================================================== page head -- */
+.ox-main {
+  padding: 0 var(--ox-s-5) var(--ox-s-6);
+}
+
+.ox-pagehead {
+  display: grid;
+  gap: var(--ox-s-4);
+  margin-bottom: var(--ox-s-4);
+}
+.ox-pagehead-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ox-s-4);
+  flex-wrap: wrap;
+}
+.ox-pagehead-filters {
+  align-items: center;
+}
+.ox-pagehead-title h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  color: var(--ox-ink);
+}
+.ox-pagehead-title p {
+  margin: 6px 0 0;
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+}
+.ox-pagehead-actions,
+.ox-daterange {
+  display: flex;
+  align-items: center;
+  gap: var(--ox-s-2);
+  flex: none;
+}
+
+/* ========================================================= content layout -- */
+/*
+ * The reference's card grid: three across the top, then a wide chart beside
+ * a narrower panel. These are the two shapes nearly every screen needs.
+ */
+.ox-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--ox-s-3);
+}
+.ox-grid-wide {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--ox-s-3);
+  margin-top: var(--ox-s-3);
+}
+.ox-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ox-s-3);
+}
+
+/* The gradient hero card — first of the three, as in the reference. */
+.ox-card-hero {
+  position: relative;
+  background: var(--ox-grad-hero);
+  color: #fff;
+  overflow: hidden;
+}
+.ox-card-hero .ox-card-head h3,
+.ox-card-hero .ox-card-head h3 svg {
+  color: #fff;
+  font-weight: 400;
+}
+.ox-card-hero-waves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.ox-card-hero > *:not(.ox-card-hero-waves) {
+  position: relative;
+}
+
+.ox-stat-big {
+  margin: auto 0 0;
+  font-size: 46px;
+  font-weight: 500;
+  letter-spacing: -1.8px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ox-stat-mid {
+  margin: var(--ox-s-3) 0 0;
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: -0.8px;
+  font-variant-numeric: tabular-nums;
+}
+.ox-stat-delta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: var(--ox-s-3) 0 0;
+  font-size: var(--ox-fs-xs);
+}
+.ox-stat-delta b {
+  font-size: var(--ox-fs-micro);
+  font-weight: 500;
+  padding: 3px 6px;
+  border-radius: var(--ox-r-chip);
+  background: var(--ox-tbg);
+  color: var(--ox-tfg);
+}
+.ox-card-hero .ox-stat-delta b {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+.ox-card-hero .ox-circ {
+  background: rgba(255, 255, 255, 0.26);
+  border-color: transparent;
+  color: #fff;
+}
+
+/* The segmented meter under Finance Balance. */
+.ox-meter {
+  display: flex;
+  height: 32px;
+  margin-top: var(--ox-s-3);
+  border-radius: var(--ox-r-chip);
+  background: var(--ox-hairline);
+  overflow: hidden;
+  animation: ox-wipe 1s var(--ox-ease) 0.2s both;
+}
+.ox-meter i:first-child {
+  background: linear-gradient(90deg, #35b2f0, #5a8ff0 55%, #a79bf6);
+}
+.ox-meter i:last-child {
+  background: var(--ox-t-blue-bg);
+}
+@keyframes ox-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+.ox-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: var(--ox-s-3);
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+}
+.ox-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ox-legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--ox-r-pill);
+}
+
+/* The green footnote strip under Sales Category. */
+.ox-note-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--ox-s-2);
+  margin-top: auto;
+  padding: var(--ox-s-2);
+  border-radius: var(--ox-r-control);
+  background: var(--ox-surface-2);
+  border: 1px solid var(--ox-line);
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-ink-2);
+}
+.ox-note-strip b {
+  flex: none;
+  padding: 4px 6px;
+  border-radius: var(--ox-r-chip);
+  background: var(--ox-t-green-bg);
+  color: var(--ox-t-green-fg);
+  font-size: var(--ox-fs-micro);
+  font-weight: 500;
+}
+
+/* ============================================================ role switch -- */
+.ox-roles {
+  position: relative;
+}
+.ox-roles-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 var(--ox-s-3);
+  border: 1px dashed var(--ox-t-purple);
+  border-radius: var(--ox-r-pill);
+  background: var(--ox-t-purple-bg);
+  color: var(--ox-t-purple-fg);
+  font-family: var(--ox-font);
+  font-size: var(--ox-fs-xs);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ox-roles-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: var(--ox-z-panel);
+  width: 280px;
+  padding: var(--ox-s-2);
+  background: var(--ox-card);
+  border: 1px solid var(--ox-line);
+  border-radius: var(--ox-r-control);
+  box-shadow: var(--ox-shadow-pop);
+}
+.ox-roles-note {
+  padding: var(--ox-s-2);
+  margin: 0 0 var(--ox-s-1);
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+  line-height: 1.5;
+}
+.ox-roles-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.ox-roles-menu button {
+  display: flex;
+  width: 100%;
+  padding: var(--ox-s-2) var(--ox-s-3);
+  border: 0;
+  border-radius: var(--ox-r-chip);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--ox-font);
+}
+.ox-roles-menu button:hover {
+  background: var(--ox-surface-2);
+}
+.ox-roles-menu button.is-on {
+  background: var(--ox-t-blue-bg);
+}
+.ox-roles-menu b {
+  display: block;
+  font-size: var(--ox-fs-sm);
+  color: var(--ox-ink);
+}
+.ox-roles-menu small {
+  display: block;
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+}
+
+/* ======================================================= command palette -- */
+.ox-palette-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--ox-z-palette);
+  display: grid;
+  place-items: start center;
+  padding-top: 12vh;
+  background: rgba(10, 14, 28, 0.45);
+  backdrop-filter: blur(2px);
+}
+.ox-palette {
+  width: min(620px, 92vw);
+  background: var(--ox-card);
+  border-radius: var(--ox-r-panel);
+  box-shadow: var(--ox-shadow-pop);
+  overflow: hidden;
+  animation: ox-pop var(--ox-t-mid) var(--ox-ease) both;
+}
+@keyframes ox-pop {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+    scale: 0.985;
+  }
+}
+.ox-palette-field {
+  display: flex;
+  align-items: center;
+  gap: var(--ox-s-3);
+  padding: var(--ox-s-4);
+  border-bottom: 1px solid var(--ox-hairline);
+  color: var(--ox-muted);
+}
+.ox-palette-field input {
+  flex: 1;
+  border: 0;
+  background: none;
+  outline: none;
+  font-family: var(--ox-font);
+  font-size: var(--ox-fs-h3);
+  color: var(--ox-ink);
+}
+.ox-palette-field input::placeholder {
+  color: var(--ox-faint);
+}
+.ox-palette-field kbd {
+  font-family: var(--ox-font-mono);
+  font-size: var(--ox-fs-micro);
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--ox-surface-2);
+  border: 1px solid var(--ox-line);
+  color: var(--ox-muted);
+}
+.ox-palette-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--ox-s-2);
+  max-height: 46vh;
+  overflow-y: auto;
+}
+.ox-palette-list button {
+  display: flex;
+  align-items: center;
+  gap: var(--ox-s-3);
+  width: 100%;
+  padding: var(--ox-s-2) var(--ox-s-3);
+  border: 0;
+  border-radius: var(--ox-r-chip);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--ox-font);
+  color: var(--ox-ink-2);
+}
+.ox-palette-list button.is-active {
+  background: var(--ox-t-blue-bg);
+  color: var(--ox-t-blue-fg);
+}
+.ox-palette-list button > span {
+  flex: 1;
+  min-width: 0;
+}
+.ox-palette-list b {
+  display: block;
+  font-size: var(--ox-fs-sm);
+  font-weight: 600;
+}
+.ox-palette-list small {
+  display: block;
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ox-palette-list em {
+  font-style: normal;
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-faint);
+  flex: none;
+}
+.ox-palette-empty {
+  padding: var(--ox-s-5);
+  text-align: center;
+  font-size: var(--ox-fs-sm);
+  color: var(--ox-muted);
+}
+
+/* ============================================================= responsive -- */
+@media (max-width: 1100px) {
+  .ox-appbar {
+    grid-template-columns: auto 1fr;
+    row-gap: var(--ox-s-3);
+  }
+  .ox-pillnav {
+    order: 3;
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 860px) {
+  .ox-grid-3,
+  .ox-grid-wide,
+  .ox-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .ox-appbar,
+  .ox-main {
+    padding-left: var(--ox-s-4);
+    padding-right: var(--ox-s-4);
+  }
+  .ox-pagehead-title h1 {
+    font-size: 26px;
+  }
+  .ox-daterange .ox-pill {
+    display: none;
+  }
+}
+
+/* ============================================ the dot-matrix chart card -- */
+/*
+ * The reference's signature chart: a dotted column per month against a
+ * dashed grid, with a cursor and a floating read-out. Everything is
+ * positioned as a percentage so it reflows with the card.
+ */
+.ox-chart-card {
+  min-height: 340px;
+}
+.ox-plot {
+  position: relative;
+  flex: 1;
+  min-height: 190px;
+  /* Headroom for the top y-label, which sits above its gridline. */
+  margin-top: var(--ox-s-4);
+  padding-top: 8px;
+}
+.ox-plot-dots {
+  position: absolute;
+  left: 46px;
+  right: 8px;
+  bottom: 0;
+  width: calc(100% - 54px);
+  height: 100%;
+}
+.ox-gridline {
+  position: absolute;
+  left: 46px;
+  right: 0;
+  border-top: 1px dashed var(--ox-line);
+}
+.ox-gridline em {
+  position: absolute;
+  right: calc(100% + 8px);
+  top: -7px;
+  font-size: var(--ox-fs-micro);
+  font-style: normal;
+  color: var(--ox-muted);
+}
+.ox-cursor {
+  position: absolute;
+  top: 6%;
+  bottom: 0;
+  border-left: 1px dashed var(--ox-t-blue);
+  transition: left var(--ox-t-fast) ease;
+  pointer-events: none;
+}
+.ox-tip {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  width: 86px;
+  padding: 8px;
+  border-radius: var(--ox-r-chip);
+  background: var(--ox-card);
+  box-shadow: var(--ox-shadow-pop);
+  display: grid;
+  gap: 1px;
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+  transition: left var(--ox-t-fast) ease;
+  pointer-events: none;
+}
+.ox-tip span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.ox-tip i {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--ox-r-pill);
+}
+.ox-tip b {
+  font-size: var(--ox-fs-sm);
+  font-weight: 600;
+  color: var(--ox-ink);
+  margin-bottom: 5px;
+  font-variant-numeric: tabular-nums;
+}
+.ox-hit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 16px;
+  margin-left: -8px;
+  cursor: pointer;
+}
+.ox-months {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 46px;
+  padding-right: 8px;
+  margin-top: var(--ox-s-2);
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+}
+.ox-gauge-lg {
+  width: 100%;
+  height: 190px;
+  margin-top: var(--ox-s-2);
+  overflow: visible;
+}
+
+/* ------------------------------------------------------ table extras -- */
+.ox-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ox-s-3);
+  padding: var(--ox-s-3) var(--ox-s-4);
+  border-top: 1px solid var(--ox-hairline);
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+}
+.ox-pager-btns {
+  display: flex;
+  gap: var(--ox-s-2);
+}
+.ox-pager .ox-pill:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* A field the viewer's tier does not include — never a blanked-out value. */
+.ox-redacted {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--ox-r-chip);
+  background: var(--ox-surface-2);
+  color: var(--ox-faint);
+}
+.ox-table code {
+  font-family: var(--ox-font-mono);
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-ink-2);
+}
+
+/* The KRA cell: the bar must take the slack, not collapse to nothing. */
+.ox-table [data-numeric] .ox-bar {
+  flex: 1;
+  min-width: 48px;
+}

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import "./ui-tokens.css";
+import "./ui-components.css";
 import "./globals.css";
 import "./dashboard.css";
 import "./dashboard2.css";

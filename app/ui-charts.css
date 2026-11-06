@@ -1,0 +1,658 @@
+/*
+ * The second chart set and the widgets built on it.
+ *
+ * Every colour is a token reference, which is what makes all of this work
+ * in night mode without a single dark-specific rule.
+ */
+
+/* ============================================================ area chart -- */
+.ox-chart {
+  position: relative;
+  width: 100%;
+}
+.ox-chart > svg {
+  width: 100%;
+  height: calc(100% - 20px);
+  display: block;
+  overflow: visible;
+}
+.ox-chart-hits {
+  position: absolute;
+  inset: 0 0 20px 0;
+  display: flex;
+}
+.ox-chart-hits button {
+  flex: 1;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: crosshair;
+}
+.ox-chart-hits button:focus-visible {
+  outline: 2px solid var(--ox-t-blue);
+  outline-offset: -2px;
+  border-radius: var(--ox-r-chip);
+}
+.ox-chart-tip,
+.ox-bars-tip {
+  position: absolute;
+  top: 0;
+  translate: -50% 0;
+  z-index: 2;
+  padding: 6px 10px;
+  border-radius: var(--ox-r-chip);
+  background: var(--ox-card);
+  box-shadow: var(--ox-shadow-pop);
+  border: 1px solid var(--ox-hairline);
+  text-align: center;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.ox-chart-tip b,
+.ox-bars-tip b {
+  display: block;
+  font-size: var(--ox-fs-sm);
+  font-weight: 600;
+  color: var(--ox-ink);
+  font-variant-numeric: tabular-nums;
+}
+.ox-chart-tip small,
+.ox-bars-tip small {
+  display: block;
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+}
+.ox-chart-axis {
+  display: flex;
+  justify-content: space-between;
+  height: 20px;
+  align-items: flex-end;
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+}
+.ox-chart-axis span {
+  flex: 1;
+  text-align: center;
+  transition: color var(--ox-t-fast);
+}
+.ox-chart-axis span[data-on] {
+  color: var(--ox-ink);
+  font-weight: 600;
+}
+
+/* ============================================================= bar chart -- */
+.ox-bars {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.ox-bars-plot {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  min-height: 0;
+}
+.ox-bars-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+.ox-bars-col i {
+  width: 100%;
+  border-radius: var(--ox-r-chip);
+  background: var(--ox-hairline);
+  transform-origin: bottom;
+  animation: ox-rise-bar 0.6s var(--ox-ease) both;
+  transition: background var(--ox-t-fast);
+}
+.ox-bars-col[data-on] i {
+  background: linear-gradient(180deg, var(--ox-tfg), var(--ox-tsolid));
+}
+@keyframes ox-rise-bar {
+  from {
+    scale: 1 0;
+    opacity: 0;
+  }
+}
+
+/* ========================================================== target line -- */
+.ox-target {
+  position: relative;
+  width: 100%;
+}
+.ox-target > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.ox-target-marker {
+  position: absolute;
+  top: 0;
+  translate: -50% 0;
+  font-size: var(--ox-fs-micro);
+  font-weight: 600;
+  color: var(--ox-t-orange-fg);
+  white-space: nowrap;
+}
+.ox-target-baseline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.ox-target-baseline i {
+  width: 3px;
+  height: 3px;
+  border-radius: var(--ox-r-pill);
+  background: var(--ox-line-strong);
+}
+
+/* =========================================================== segment bar -- */
+.ox-segbar {
+  display: flex;
+  gap: 3px;
+  width: 100%;
+}
+.ox-segbar i {
+  border-radius: var(--ox-r-chip);
+  background: var(--ox-tsolid);
+  transform-origin: left;
+  animation: ox-grow 0.8s var(--ox-ease) both;
+  min-width: 4px;
+}
+.ox-segbar i[data-striped] {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.55) 0 2px,
+    transparent 2px 6px
+  );
+}
+
+/* ========================================================= progress ticks -- */
+.ox-ticks {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--ox-s-2);
+  height: 26px;
+}
+.ox-ticks-fill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  padding-right: 8px;
+  border-radius: var(--ox-r-chip);
+  background: linear-gradient(90deg, var(--ox-tfg), var(--ox-tsolid));
+  transform-origin: left;
+  animation: ox-grow 0.9s var(--ox-ease) both;
+}
+.ox-ticks-fill em {
+  font-style: normal;
+  font-size: var(--ox-fs-micro);
+  font-weight: 700;
+  color: #fff;
+}
+.ox-ticks-rule {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+}
+.ox-ticks-rule i {
+  width: 1px;
+  height: 11px;
+  background: var(--ox-line-strong);
+}
+.ox-ticks-handle {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 3px;
+  border-radius: var(--ox-r-pill);
+  background: var(--ox-ink);
+  translate: -1px 0;
+}
+.ox-ticks b {
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+  font-weight: 500;
+}
+.ox-ticks-caption {
+  display: flex;
+  align-items: center;
+  gap: var(--ox-s-2);
+  margin-top: var(--ox-s-3);
+  padding: var(--ox-s-2) var(--ox-s-3);
+  border-radius: var(--ox-r-control);
+  background: var(--ox-surface-2);
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+}
+
+/* =========================================================== radial gauge -- */
+.ox-radial {
+  position: relative;
+  margin: 0 auto;
+}
+.ox-radial svg {
+  width: 100%;
+  display: block;
+}
+.ox-radial-mid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6%;
+  text-align: center;
+}
+.ox-radial-mid b {
+  display: block;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.9px;
+  color: var(--ox-ink);
+  font-variant-numeric: tabular-nums;
+}
+.ox-radial-mid small {
+  display: block;
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+}
+
+/* ============================================================= semi gauge -- */
+.ox-semi {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+}
+.ox-semi svg {
+  width: 100%;
+  display: block;
+  overflow: visible;
+}
+.ox-semi-arc {
+  animation: ox-semi-draw 1.1s var(--ox-ease) both;
+}
+@keyframes ox-semi-draw {
+  from {
+    stroke-dasharray: 0 400;
+  }
+  to {
+    stroke-dasharray: 400 0;
+  }
+}
+.ox-semi-mid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 46%;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 3px;
+}
+.ox-semi-mid b {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ox-ink);
+  font-variant-numeric: tabular-nums;
+}
+.ox-semi-mid span {
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+}
+.ox-semi-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+  margin-top: -6px;
+}
+.ox-semi-caption {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ox-s-2);
+  margin-top: var(--ox-s-3);
+  padding: var(--ox-s-3);
+  border-radius: var(--ox-r-control);
+  background: var(--ox-surface-2);
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+}
+
+/* ============================================================= micro bars -- */
+.ox-micro {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 26px;
+  width: 100%;
+}
+.ox-micro i {
+  flex: 1;
+  height: 100%;
+  border-radius: 1px;
+  background: var(--ox-hairline);
+  animation: ox-rise-bar 0.4s var(--ox-ease) both;
+}
+.ox-micro i[data-on] {
+  background: var(--ox-tsolid);
+}
+
+/* ======================================================= stacked columns -- */
+.ox-stacks {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--ox-s-3);
+  width: 100%;
+}
+.ox-stack {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.ox-stack-col {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--ox-r-chip);
+  overflow: hidden;
+  transform-origin: bottom;
+  animation: ox-rise-bar 0.7s var(--ox-ease) both;
+}
+.ox-stack-col i {
+  background: var(--ox-tsolid);
+}
+
+/* ====================================================== geo distribution -- */
+.ox-geo {
+  list-style: none;
+  display: grid;
+  gap: var(--ox-s-3);
+  margin: 0;
+  padding: 0;
+}
+.ox-geo li {
+  display: grid;
+  grid-template-columns: 20px 90px 1fr 62px;
+  align-items: center;
+  gap: var(--ox-s-3);
+  animation: ox-slide var(--ox-t-mid) var(--ox-ease) both;
+}
+.ox-geo-flag {
+  font-size: 15px;
+  line-height: 1;
+}
+.ox-geo-name {
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ox-geo-track {
+  height: 8px;
+  border-radius: var(--ox-r-pill);
+  background: var(--ox-hairline);
+  overflow: hidden;
+}
+.ox-geo-track i {
+  display: block;
+  height: 100%;
+  border-radius: var(--ox-r-pill);
+  background: var(--ox-tsolid);
+  transform-origin: left;
+  animation: ox-grow 0.8s var(--ox-ease) both;
+}
+.ox-geo b {
+  font-size: var(--ox-fs-xs);
+  font-weight: 600;
+  color: var(--ox-ink);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ================================================================ widgets -- */
+.ox-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: var(--ox-fs-micro);
+  font-weight: 600;
+  color: var(--ox-tfg);
+  white-space: nowrap;
+}
+.ox-delta em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--ox-muted);
+  margin-left: 4px;
+}
+
+.ox-strip-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: var(--ox-s-4);
+}
+.ox-strip-row > * + * {
+  border-left: 1px solid var(--ox-hairline);
+  padding-left: var(--ox-s-4);
+}
+
+.ox-tile-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+}
+.ox-tile-head > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.ox-tile-ic {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--ox-r-chip);
+  background: var(--ox-tbg);
+  color: var(--ox-tfg);
+}
+.ox-tile-value {
+  margin: var(--ox-s-2) 0 6px;
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.9px;
+  color: var(--ox-ink);
+  font-variant-numeric: tabular-nums;
+}
+.ox-tile-sub {
+  margin-top: 4px;
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+}
+
+.ox-card-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--ox-s-2);
+}
+.ox-chart-body {
+  margin-top: var(--ox-s-4);
+  flex: 1;
+  min-height: 0;
+}
+
+.ox-insight {
+  background: linear-gradient(165deg, var(--ox-card), var(--ox-surface-2));
+}
+.ox-insight-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ox-s-3);
+}
+.ox-insight-head p {
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+  max-width: 28ch;
+}
+.ox-insight-ic {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: var(--ox-r-pill);
+  background: var(--ox-t-purple-bg);
+  color: var(--ox-t-purple-fg);
+}
+.ox-insight-score {
+  margin: var(--ox-s-5) 0 0;
+  font-size: 58px;
+  font-weight: 600;
+  letter-spacing: -2.6px;
+  line-height: 1;
+  color: var(--ox-ink);
+}
+.ox-insight-title {
+  margin: var(--ox-s-2) 0 0;
+  font-size: var(--ox-fs-h3);
+  color: var(--ox-ink-2);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--ox-s-2);
+}
+.ox-insight-actions {
+  list-style: none;
+  margin: var(--ox-s-4) 0 0;
+  padding: var(--ox-s-2) var(--ox-s-3);
+  border-radius: var(--ox-r-control);
+  border: 1px solid var(--ox-hairline);
+  background: var(--ox-card);
+}
+.ox-insight-actions li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ox-s-3);
+  padding: var(--ox-s-2) 0;
+  font-size: var(--ox-fs-sm);
+  color: var(--ox-ink-2);
+}
+.ox-insight-actions li + li {
+  border-top: 1px solid var(--ox-hairline);
+}
+.ox-insight-actions b {
+  color: var(--ox-t-green-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.ox-activity {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ox-activity li {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  align-items: center;
+  gap: var(--ox-s-3);
+  padding: var(--ox-s-3) 0;
+  border-bottom: 1px solid var(--ox-hairline);
+  font-size: var(--ox-fs-sm);
+  animation: ox-slide var(--ox-t-mid) var(--ox-ease) both;
+}
+.ox-activity li:last-child {
+  border-bottom: 0;
+}
+.ox-activity time {
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+  font-variant-numeric: tabular-nums;
+}
+.ox-activity span {
+  color: var(--ox-ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ox-metrics {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--ox-fs-sm);
+}
+.ox-metrics th {
+  text-align: left;
+  padding: 0 0 var(--ox-s-2);
+  font-size: var(--ox-fs-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ox-muted);
+  border-bottom: 1px solid var(--ox-hairline);
+}
+.ox-metrics th:not(:first-child),
+.ox-metrics td:not(:first-child) {
+  text-align: right;
+  width: 80px;
+}
+.ox-metrics td {
+  padding: var(--ox-s-3) 0;
+  border-bottom: 1px solid var(--ox-hairline);
+  color: var(--ox-ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.ox-metrics tr:last-child td {
+  border-bottom: 0;
+}
+.ox-metrics b {
+  display: block;
+  font-size: var(--ox-fs-sm);
+  font-weight: 600;
+  color: var(--ox-ink);
+}
+.ox-metrics small {
+  display: block;
+  font-size: var(--ox-fs-micro);
+  color: var(--ox-muted);
+}
+
+@media (max-width: 900px) {
+  .ox-strip-row {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+  }
+  .ox-strip-row > * + * {
+    border-left: 0;
+    border-top: 1px solid var(--ox-hairline);
+    padding-left: 0;
+    padding-top: var(--ox-s-3);
+  }
+  .ox-geo li {
+    grid-template-columns: 20px 1fr 56px;
+  }
+  .ox-geo-track {
+    display: none;
+  }
+}

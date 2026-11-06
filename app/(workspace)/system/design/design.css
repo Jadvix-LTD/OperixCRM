@@ -1,0 +1,276 @@
+/*
+ * Layout for /system/design only.
+ *
+ * Anything reusable belongs in components/ui. This file just arranges the
+ * reference page itself.
+ */
+
+/*
+ * The reference page opts into the design system's own surface and type.
+ * The marketing site's body styles stay untouched, which is the point of
+ * scoping this to .ref rather than to body.
+ */
+.ref {
+  font-family: var(--ox-font);
+  background: var(--ox-surface);
+  color: var(--ox-ink-2);
+  font-size: var(--ox-fs-body);
+  line-height: 1.55;
+  min-height: 100dvh;
+  max-width: none;
+  margin: 0 auto;
+  padding: var(--ox-s-6) var(--ox-s-5) var(--ox-s-7);
+}
+
+.ref-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ox-s-4);
+  flex-wrap: wrap;
+  padding-bottom: var(--ox-s-5);
+  border-bottom: 1px solid var(--ox-hairline);
+}
+.ref-top h1 {
+  margin: var(--ox-s-2) 0 0;
+  font-size: var(--ox-fs-display);
+  font-weight: 600;
+  letter-spacing: -0.9px;
+  color: var(--ox-ink);
+}
+.ref-top p {
+  margin: 6px 0 0;
+  max-width: 62ch;
+  color: var(--ox-muted);
+  font-size: var(--ox-fs-sm);
+}
+
+.ref-sec {
+  padding: var(--ox-s-6) 0;
+  border-bottom: 1px solid var(--ox-hairline);
+}
+.ref-sec:last-child {
+  border-bottom: 0;
+}
+.ref-sec-head {
+  margin-bottom: var(--ox-s-4);
+}
+.ref-sec-head h2 {
+  font-size: var(--ox-fs-h2);
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--ox-ink);
+}
+.ref-sec-head p {
+  margin-top: 4px;
+  font-size: var(--ox-fs-sm);
+  color: var(--ox-muted);
+}
+.ref-sec-body {
+  display: grid;
+  gap: var(--ox-s-4);
+}
+
+.ref-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ox-s-3);
+}
+
+.ref-pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--ox-s-4);
+}
+
+.ref-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--ox-s-4);
+}
+.ref-centre {
+  display: grid;
+  place-items: center;
+  padding: var(--ox-s-4) 0;
+}
+.ref-big {
+  font-size: var(--ox-fs-display);
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  color: var(--ox-ink);
+  font-variant-numeric: tabular-nums;
+  margin: var(--ox-s-3) 0 var(--ox-s-2);
+}
+
+/* tints */
+.ref-tints {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--ox-s-3);
+}
+.ref-tint {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+  padding: var(--ox-s-3);
+  background: var(--ox-card);
+  border-radius: var(--ox-r-card);
+  box-shadow: var(--ox-shadow-card);
+}
+.ref-tint-chips {
+  display: flex;
+  gap: 6px;
+}
+.ref-tint-chips i {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--ox-r-control);
+  display: block;
+}
+.ref-sw-bg {
+  background: var(--ox-tbg);
+}
+.ref-sw-solid {
+  background: var(--ox-tsolid);
+}
+.ref-tint b {
+  font-size: var(--ox-fs-sm);
+  color: var(--ox-ink);
+  text-transform: capitalize;
+}
+.ref-tint small {
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+  min-height: 2.6em;
+}
+
+/* foundation */
+.ref-found {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--ox-s-2) var(--ox-s-4);
+}
+.ref-found-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ox-s-3);
+}
+.ref-found-row i {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--ox-r-chip);
+  border: 1px solid var(--ox-line);
+  flex: none;
+}
+.ref-found-row code {
+  font-family: var(--ox-font-mono);
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-ink);
+}
+.ref-found-row small {
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+  margin-left: auto;
+}
+
+.ref-radius {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ox-s-4);
+  margin-top: var(--ox-s-2);
+}
+.ref-radius div {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+.ref-radius span {
+  width: 54px;
+  height: 54px;
+  display: block;
+  background: var(--ox-t-blue-bg);
+  border: 1px solid var(--ox-t-blue);
+}
+.ref-radius code {
+  font-family: var(--ox-font-mono);
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+}
+
+/* forms demo */
+.ref-choices {
+  display: grid;
+  gap: var(--ox-s-2);
+  margin-bottom: var(--ox-s-4);
+}
+.ref-switch {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ox-s-3);
+}
+.ref-switch b {
+  display: block;
+  font-size: var(--ox-fs-sm);
+  color: var(--ox-ink-2);
+}
+.ref-switch small {
+  display: block;
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+}
+
+/* side panel demo */
+.ref-side-demo {
+  display: flex;
+  min-height: 240px;
+  background: var(--ox-card);
+  border-radius: var(--ox-r-card);
+  box-shadow: var(--ox-shadow-card);
+  overflow: hidden;
+}
+.ref-side-list {
+  flex: 1;
+  padding: var(--ox-s-4);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--ox-muted);
+  font-size: var(--ox-fs-sm);
+}
+
+/* the refusals */
+.ref-nos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--ox-s-3);
+}
+.ref-no {
+  padding: var(--ox-s-4);
+  background: var(--ox-card);
+  border-radius: var(--ox-r-card);
+  border-left: 3px solid var(--ox-t-red);
+  box-shadow: var(--ox-shadow-card);
+}
+.ref-no b {
+  display: block;
+  font-size: var(--ox-fs-sm);
+  color: var(--ox-ink);
+  margin-bottom: 4px;
+}
+.ref-no p {
+  font-size: var(--ox-fs-xs);
+  color: var(--ox-muted);
+}
+
+@media (max-width: 700px) {
+  .ref-side-demo {
+    flex-direction: column;
+  }
+}
+
+/* The page content itself stays in a column; the surface runs full width. */
+.ref > * {
+  max-width: 1180px;
+  margin-inline: auto;
+}
